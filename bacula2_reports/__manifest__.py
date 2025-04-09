@@ -9,6 +9,7 @@
         "crm",
     ],
     "data": [
+        "security/ir.model.access.csv",
         "wizard/sale_report2_views.xml",
     ],
     "demo": [],
