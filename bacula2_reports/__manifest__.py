@@ -4,9 +4,10 @@
     "author": "IT-Projects LLC, Eugene Molotov",
     "support": "it@it-projects.info",
     "website": "https://github.com/it-projects-llc/bacula-addons",
-    "license": "LGPL-3",
+    "license": "AGPL-3",
     "depends": [
         "crm",
+        "web_widget_bokeh_chart",
     ],
     "data": [
         "security/ir.model.access.csv",

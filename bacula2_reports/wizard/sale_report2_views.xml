@@ -16,12 +16,17 @@
                 </header>
                 <group>
                     <field name="company" />
-                    <field name="period" />
+                    <field name="period_start" />
+                    <field name="period_end" />
                 </group>
                 <group string="Summary">
                     <field name="opportunities_count_all" />
                     <field name="opportunities_count_won" />
+                    <field name="opportunities_emails" />
                 </group>
+                <div>
+                    <field name="pipeline_chart" widget="bokeh_chart" nolabel="1" />
+                </div>
             </form>
         </field>
     </record>
