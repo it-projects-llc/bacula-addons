@@ -1,10 +1,10 @@
 from bokeh.embed import components
 from bokeh.models import ColumnDataSource, HoverTool
-from bokeh.palettes import Spectral6
+from bokeh.palettes import Spectral11
 from bokeh.plotting import figure
 
 
-def prepare_pipeline_chart(stages, values):
+def prepare_pipeline_chart(stages, values, title):
     # Calculate percentages
     percentages = [
         f"{(value/values[0]*100 if values[0] else 0):.1f}%" for value in values
@@ -17,9 +17,8 @@ def prepare_pipeline_chart(stages, values):
         y_height = y_offset / len(values)
 
         # Calculate width for each stage based on value
-        widths = [
-            max_width * (value / values[0] if values[0] else 0) for value in values
-        ]
+        step = (0.1 - max_width) / len(values)
+        widths = [max_width + step * i for i in range(len(values))]
 
         xs = []
         ys = []
@@ -52,7 +51,7 @@ def prepare_pipeline_chart(stages, values):
             stage=stages,
             value=values,
             percentage=percentages,
-            color=Spectral6,
+            color=Spectral11,
             alpha=[0.8] * len(stages),
             line_width=[2] * len(stages),
         )
@@ -60,9 +59,9 @@ def prepare_pipeline_chart(stages, values):
 
     # Create figure
     p = figure(
-        height=500,
-        width=400,
-        title="Sales Funnel",
+        height=600,
+        width=800,
+        title=title,
         toolbar_location=None,
         x_range=(-0.5, 0.5),
         y_range=(0, 0.7),

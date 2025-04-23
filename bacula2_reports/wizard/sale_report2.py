@@ -74,7 +74,7 @@ class SaleReport2(models.TransientModel):
             s2v = defaultdict(float)
             for record in records:
                 stage_record = record.stage_id
-                s2v[stage_record] += record.expected_revenue  # TODO: count revenue
+                s2v[stage_record] += record.expected_revenue
 
             stages = []
             values = []
@@ -82,5 +82,5 @@ class SaleReport2(models.TransientModel):
                 stages.append(stage.display_name)
                 values.append(s2v[stage])
 
-            script, div = prepare_pipeline_chart(stages, values)
+            script, div = prepare_pipeline_chart(stages, values, "Sales Pipeline")
             w.pipeline_chart = json.dumps({"div": div, "script": script})
