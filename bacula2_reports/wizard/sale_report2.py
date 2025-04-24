@@ -38,6 +38,8 @@ class SaleReport2(models.TransientModel):
         default=lambda self: fields.Date.today() - timedelta(days=30)
     )
     period_end = fields.Date(default=lambda self: fields.Date.today())
+    currency_id = fields.Many2one("res.currency", related="company.currency_id")
+
     opportunities_count_all = fields.Integer()
     opportunities_count_won = fields.Integer()
     opportunities_count_lost = fields.Integer()

@@ -16,6 +16,7 @@
                 </header>
                 <group>
                     <field name="company" />
+                    <field name="currency_id" invisible="1" />
                     <field name="period_start" />
                     <field name="period_end" />
                 </group>
