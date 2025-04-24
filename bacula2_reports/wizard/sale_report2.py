@@ -1,9 +1,9 @@
 import json
-from collections import defaultdict
 from datetime import timedelta
 
 from odoo import api, fields, models
 from odoo.tools.date_utils import end_of, start_of
+from odoo.tools.misc import formatLang
 
 from ..tools import prepare_pipeline_chart
 
@@ -40,6 +40,7 @@ class SaleReport2(models.TransientModel):
     period_end = fields.Date(default=lambda self: fields.Date.today())
     opportunities_count_all = fields.Integer()
     opportunities_count_won = fields.Integer()
+    opportunities_count_lost = fields.Integer()
     opportunities_emails = fields.Text()
     pipeline_chart = fields.Char(default=json.dumps({"div": "", "script": ""}))
 
@@ -55,32 +56,45 @@ class SaleReport2(models.TransientModel):
                 end_of(fields.Datetime.to_datetime(w.period_end), "hour"),
             )
 
-            records = Leads.search(
-                [
-                    ("company_id", "=", w.company.id),
-                    ("type", "=", "opportunity"),
-                    ("create_date", ">=", period[0]),
-                    ("create_date", "<", period[1]),
-                ]
-            )
+            domain = [
+                ("company_id", "=", w.company.id),
+                ("type", "=", "opportunity"),
+                ("create_date", ">=", period[0]),
+                ("create_date", "<", period[1]),
+            ]
+            records = Leads.search([("active", "=", True)] + domain)
 
             w.opportunities_count_all = len(records)
             w.opportunities_count_won = len(records.filtered("stage_id.is_won"))
             w.opportunities_emails = "\n".join(
                 records.filtered("email_from").mapped("email_from")
             )
-            stage_records = records.mapped("stage_id").sorted("sequence")
+            w.opportunities_count_lost = Leads.search_count(
+                [("active", "=", False)] + domain
+            )
 
-            s2v = defaultdict(float)
-            for record in records:
-                stage_record = record.stage_id
-                s2v[stage_record] += record.expected_revenue
+            group_stage_data = Leads.read_group(
+                domain, ["expected_revenue"], ["stage_id"]
+            )
 
             stages = []
             values = []
-            for stage in stage_records:
-                stages.append(stage.display_name)
-                values.append(s2v[stage])
+            descriptions = []
+            for stage in group_stage_data:
+                value = stage["expected_revenue"]
+                if not value:
+                    continue
 
-            script, div = prepare_pipeline_chart(stages, values, "Sales Pipeline")
+                values.append(value)
+                stages.append(str(stage["stage_id"][1]))
+                descriptions.append(
+                    formatLang(self.env, value, currency_obj=w.company.currency_id)  # noqa: E501
+                )
+
+            if not values:
+                script = div = ""
+            else:
+                script, div = prepare_pipeline_chart(
+                    stages, values, "Sales Pipeline", descriptions
+                )
             w.pipeline_chart = json.dumps({"div": div, "script": script})

@@ -21,12 +21,13 @@
                 </group>
                 <group string="Summary">
                     <field name="opportunities_count_all" />
+                    <field name="opportunities_count_lost" />
                     <field name="opportunities_count_won" />
                     <field name="opportunities_emails" />
                 </group>
-                <div>
+                <group>
                     <field name="pipeline_chart" widget="bokeh_chart" nolabel="1" />
-                </div>
+                </group>
             </form>
         </field>
     </record>

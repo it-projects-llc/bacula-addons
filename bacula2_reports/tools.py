@@ -1,10 +1,32 @@
 from bokeh.embed import components
 from bokeh.models import ColumnDataSource, HoverTool
-from bokeh.palettes import Spectral11
+from bokeh.palettes import (
+    Spectral3,
+    Spectral4,
+    Spectral5,
+    Spectral6,
+    Spectral7,
+    Spectral8,
+    Spectral9,
+    Spectral10,
+    Spectral11,
+)
 from bokeh.plotting import figure
 
+COLOR_MAPPING = {
+    3: Spectral3,
+    4: Spectral4,
+    5: Spectral5,
+    6: Spectral6,
+    7: Spectral7,
+    8: Spectral8,
+    9: Spectral9,
+    10: Spectral10,
+    11: Spectral11,
+}
 
-def prepare_pipeline_chart(stages, values, title):
+
+def prepare_pipeline_chart(stages, values, title, descriptions):
     # Calculate percentages
     percentages = [
         f"{(value/values[0]*100 if values[0] else 0):.1f}%" for value in values
@@ -43,6 +65,11 @@ def prepare_pipeline_chart(stages, values, title):
     # Create funnel coordinates
     xs, ys = create_funnel_coordinates(values)
 
+    try:
+        color = COLOR_MAPPING[len(stages)]
+    except KeyError:
+        color = Spectral11[: len(stages)]
+
     # Create data source
     source = ColumnDataSource(
         data=dict(
@@ -51,7 +78,8 @@ def prepare_pipeline_chart(stages, values, title):
             stage=stages,
             value=values,
             percentage=percentages,
-            color=Spectral11,
+            descriptions=descriptions,
+            color=color,
             alpha=[0.8] * len(stages),
             line_width=[2] * len(stages),
         )
@@ -87,6 +115,7 @@ def prepare_pipeline_chart(stages, values, title):
             ("Stage", "@stage"),
             ("Value", "@value"),
             ("Conversion", "@percentage"),
+            ("Revenue", "@descriptions"),
         ],
     )
     p.add_tools(hover)
