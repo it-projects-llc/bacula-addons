@@ -88,7 +88,7 @@ class SaleReport2(models.TransientModel):
                 values.append(value)
                 stages.append(str(stage["stage_id"][1]))
                 descriptions.append(
-                    formatLang(self.env, value, currency_obj=w.company.currency_id)  # noqa: E501
+                    formatLang(self.env, value, currency_obj=w.company.currency_id)
                 )
 
             if not values:
