@@ -1,5 +1,5 @@
 from bokeh.embed import components
-from bokeh.models import ColumnDataSource, HoverTool
+from bokeh.models import ColumnDataSource, FactorRange, HoverTool
 from bokeh.palettes import (
     Spectral3,
     Spectral4,
@@ -14,6 +14,7 @@ from bokeh.palettes import (
 from bokeh.plotting import figure
 
 COLOR_MAPPING = {
+    2: (Spectral3[1], Spectral3[-1]),
     3: Spectral3,
     4: Spectral4,
     5: Spectral5,
@@ -136,6 +137,42 @@ def prepare_pipeline_chart(stages, values, title, descriptions):
         text_align="center",
         text_baseline="top",
         text_font_size="12px",
+    )
+
+    return components(p, wrap_script=False)
+
+
+# https://docs.bokeh.org/en/2.4.3/docs/gallery/bar_stacked.html
+def prepare_sales_target_chart(individual_data, *args, **kw):
+    assert "x" not in individual_data
+
+    factors = ["Progress", "Target"]
+    regions = list(individual_data.keys())
+
+    data = {
+        "x": factors,
+    }
+
+    data.update(individual_data)
+    source = ColumnDataSource(data=data)
+
+    p = figure(
+        x_range=FactorRange(*factors),
+        height=600,
+        width=800,
+        toolbar_location=None,
+        tools="hover",
+        tooltips="$name @x: @$name",
+    )
+
+    p.vbar_stack(
+        regions,
+        x="x",
+        width=0.9,
+        alpha=0.5,
+        color=COLOR_MAPPING[len(regions)],
+        source=source,
+        legend_label=regions,
     )
 
     return components(p, wrap_script=False)

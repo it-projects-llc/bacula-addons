@@ -7,6 +7,7 @@
     "license": "AGPL-3",
     "depends": [
         "crm",
+        "gamification",
         "web_widget_bokeh_chart",
     ],
     "data": [
