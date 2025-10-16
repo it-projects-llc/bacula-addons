@@ -1,5 +1,5 @@
 # Do NOT update manually; changes here will be overwritten by Copier
-_commit: v1.30-10-ge34c767
+_commit: v1.35
 _src_path: /opt/odoo-projects/var/addons-repo-template/
 additional_ruff_rules: []
 ci: GitHub
@@ -14,7 +14,7 @@ github_enable_stale_action: false
 github_enforce_dev_status_compatibility: false
 include_wkhtmltopdf: false
 odoo_test_flavor: Odoo
-odoo_version: 16.0
+odoo_version: 19.0
 org_name: IT-Projects LLC
 org_slug: it-projects-llc
 rebel_module_groups: []

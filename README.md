@@ -1,8 +1,8 @@
 
 <!-- /!\ Non OCA Context : Set here the badge of your runbot / runboat instance. -->
-[![Pre-commit Status](https://github.com/it-projects-llc/bacula-addons/actions/workflows/pre-commit.yml/badge.svg?branch=16.0)](https://github.com/it-projects-llc/bacula-addons/actions/workflows/pre-commit.yml?query=branch%3A16.0)
-[![Build Status](https://github.com/it-projects-llc/bacula-addons/actions/workflows/test.yml/badge.svg?branch=16.0)](https://github.com/it-projects-llc/bacula-addons/actions/workflows/test.yml?query=branch%3A16.0)
-[![codecov](https://codecov.io/gh/it-projects-llc/bacula-addons/branch/16.0/graph/badge.svg)](https://codecov.io/gh/it-projects-llc/bacula-addons)
+[![Pre-commit Status](https://github.com/it-projects-llc/bacula-addons/actions/workflows/pre-commit.yml/badge.svg?branch=19.0)](https://github.com/it-projects-llc/bacula-addons/actions/workflows/pre-commit.yml?query=branch%3A19.0)
+[![Build Status](https://github.com/it-projects-llc/bacula-addons/actions/workflows/test.yml/badge.svg?branch=19.0)](https://github.com/it-projects-llc/bacula-addons/actions/workflows/test.yml?query=branch%3A19.0)
+[![codecov](https://codecov.io/gh/it-projects-llc/bacula-addons/branch/19.0/graph/badge.svg)](https://codecov.io/gh/it-projects-llc/bacula-addons)
 <!-- /!\ Non OCA Context : Set here the badge of your translation instance. -->
 
 <!-- /!\ do not modify above this line -->
