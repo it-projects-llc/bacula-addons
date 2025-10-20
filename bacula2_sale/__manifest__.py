@@ -13,4 +13,5 @@
         "wizard/sale_subscription_pricelist_change_views.xml",
     ],
     "demo": [],
+    "installable": False,
 }

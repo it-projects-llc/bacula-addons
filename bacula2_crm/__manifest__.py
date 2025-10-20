@@ -13,4 +13,5 @@
         "views/digest_views.xml",
     ],
     "demo": [],
+    "installable": False,
 }
