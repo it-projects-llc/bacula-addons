@@ -46,7 +46,9 @@ class SaleReport2(models.TransientModel):
     )
     period_end = fields.Date(default=lambda self: fields.Date.today())
     challenge = fields.Many2one(
-        "gamification.challenge", required=True, default=_default_challenge
+        "gamification.challenge",
+        required=True,
+        default=lambda self: self._default_challenge(),
     )
 
     currency_id = fields.Many2one("res.currency", related="company.currency_id")

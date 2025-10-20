@@ -30,7 +30,7 @@ COLOR_MAPPING = {
 def prepare_pipeline_chart(stages, values, title, descriptions):
     # Calculate percentages
     percentages = [
-        f"{(value/values[0]*100 if values[0] else 0):.1f}%" for value in values
+        f"{(value / values[0] * 100 if values[0] else 0):.1f}%" for value in values
     ]
 
     # Calculate the coordinates for the funnel segments
