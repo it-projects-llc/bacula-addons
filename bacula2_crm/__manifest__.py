@@ -1,6 +1,6 @@
 {
     "name": """CRM modifications for Bacula Systems""",
-    "version": "16.0.0.2.0",
+    "version": "19.0.0.2.0",
     "author": "IT-Projects LLC, Eugene Molotov",
     "support": "it@it-projects.info",
     "website": "https://github.com/it-projects-llc/bacula-addons",

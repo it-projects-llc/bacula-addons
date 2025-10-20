@@ -3,7 +3,7 @@ from datetime import datetime
 import pytz
 from dateutil.relativedelta import relativedelta
 
-from odoo import _, fields, models
+from odoo import fields, models
 from odoo.exceptions import AccessError
 
 
@@ -30,12 +30,12 @@ class Digest(models.Model):
             start_datetime = pytz.timezone(tz_name).localize(start_datetime)
         return [
             (
-                _("Future activities"),
+                self.env._("Future activities"),
                 start_datetime,
                 start_datetime + relativedelta(days=1000),
             ),
             (
-                _("Overdue activities"),
+                self.env._("Overdue activities"),
                 start_datetime + relativedelta(days=-1000),
                 start_datetime,
             ),
@@ -86,9 +86,9 @@ WHERE create_date >= NOW() - INTERVAL '1 YEAR'
             )
             for index, user_id in enumerate(sales_user_ids):
                 kpi_values = kpis[index]
-                kpi_values[
-                    "kpi_action"
-                ] = f"bacula2_crm.user_mail_activity_action&active_id={user_id}"
+                kpi_values["kpi_action"] = (
+                    f"bacula2_crm.user_mail_activity_action&active_id={user_id}"
+                )
                 try:
                     compute_value = digest._compute_sale_activity_report_value(user_id)
                 except AccessError:
