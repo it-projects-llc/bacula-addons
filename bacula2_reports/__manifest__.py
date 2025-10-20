@@ -15,4 +15,5 @@
         "wizard/sale_report2_views.xml",
     ],
     "demo": [],
+    "installable": False,
 }
